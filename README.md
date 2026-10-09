@@ -11,7 +11,7 @@
 | Doona 前端 UI | [`Zakkaus/doona`](https://github.com/Zakkaus/doona) | 预编译静态包（按 version + SHA256 锁定） |
 
 好处：甩开中间商（不再 fork 编译 honk/doona），上游发版后只需在 `honk/Makefile` 改
-`HONK_RELEASE_TAG` / `HONK_HASH_*` 与 `doona/Makefile` 改 `PKG_VERSION` / `PKG_HASH` 即可合入。
+`HONK_RELEASE_TAG` / `HONK_HASH_*`，在 `doona/Makefile` 改 `DOONA_UPSTREAM_VER` / `PKG_HASH` 即可合入。
 
 ## 包
 
@@ -56,5 +56,10 @@ assets {
 
 1. 在 `honk/Makefile` 更新 `HONK_RELEASE_TAG` 与 `HONK_HASH_X86_64` / `HONK_HASH_AARCH64`
    （哈希务必从对应 tarball 实算，CI 会校验）。
-2. 在 `doona/Makefile` 更新 `PKG_VERSION` 与 `PKG_HASH`。
+2. 在 `doona/Makefile` 更新 `DOONA_UPSTREAM_VER`（上游 tag，决定下载 URL 与 tarball 文件名）
+   与 `PKG_HASH`。
+   ⚠️ `PKG_VERSION` 是 OpenWrt 包版本，必须与上游 tag 解耦：APK（SDK 25.12）要求版本为纯数字
+   点分且短横线后缀内不能含点，例如上游 `v0.1.0-beta.19` 对应 `PKG_VERSION:=0.1.0`。
+   若直接把 `0.1.0-beta.19` 用作 `PKG_VERSION`，25.12 构建会报
+   `ERROR: info field 'version' has invalid value: package version is invalid`（IPK 24.10 不报错）。
 3. 提交并打 `v*` tag 触发 CI。
