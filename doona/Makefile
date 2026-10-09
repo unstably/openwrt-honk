@@ -25,7 +25,10 @@ define Package/doona
   SUBMENU:=Web Servers/Proxies
   TITLE:=Doona web UI for Honk
   URL:=https://github.com/Zakkaus/doona
-  PKGARCH:=all
+  # NOTE: doona is arch-independent, but we deliberately do NOT set PKGARCH:=all.
+  # APK (SDK 25.12+) does not accept arch "all" (it uses "noarch"), and packaging a
+  # PKGARCH:=all package under APK fails. Leaving PKGARCH unset makes doona inherit the
+  # target arch, which is accepted by both IPK (24.10) and APK (25.12).
 endef
 
 define Package/doona/description

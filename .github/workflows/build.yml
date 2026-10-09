@@ -79,11 +79,18 @@ jobs:
             find bin/packages -iname '*doona*' 2>/dev/null
             echo "=== honk artifacts ==="
             find bin/packages -iname '*honk*' 2>/dev/null
-            echo "=== doona compile log ==="
-            f=$(find logs -path '*doona*compile.txt' 2>/dev/null | head -1)
-            if [ -n "$f" ]; then echo "-> $f"; tail -120 "$f"; else echo "no doona compile.txt"; fi
+            echo "=== doona log dir listing ==="
+            ls -la logs/package/feeds/honk/doona/ 2>/dev/null || echo "no doona log dir"
+            echo "=== doona compile.txt (exact, exclude check-) ==="
+            for f in $(find logs -path '*doona*' -name 'compile.txt' ! -name 'check-compile.txt' 2>/dev/null); do
+              echo "--- $f ---"; tail -150 "$f"
+            done
+            echo "=== doona all other logs ==="
+            for f in $(find logs -path '*doona*' -name '*.txt' 2>/dev/null | head -12); do
+              echo "--- $f ---"; tail -30 "$f"
+            done
             echo "=== honk compile log ==="
-            f=$(find logs -path '*honk*compile.txt' 2>/dev/null | head -1)
+            f=$(find logs -path '*honk*' -name 'compile.txt' ! -name 'check-compile.txt' 2>/dev/null | head -1)
             if [ -n "$f" ]; then echo "-> $f"; tail -40 "$f"; else echo "no honk compile.txt"; fi
             echo "=== dl doona tarball ==="
             ls -la dl/ | grep -i doona || echo "no doona in dl"
