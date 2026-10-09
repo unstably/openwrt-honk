@@ -14,6 +14,7 @@ bin/packages/aarch64_generic/packages
 + echo '=== doona artifacts ==='
 === doona artifacts ===
 + find bin/packages -iname '*doona*'
+bin/packages/aarch64_generic/honk/doona-0.1.0-r1.apk
 + echo '=== honk artifacts ==='
 === honk artifacts ===
 + find bin/packages -iname '*honk*'
@@ -22,15 +23,15 @@ bin/packages/aarch64_generic/honk/honk-2026.10.09-r1.apk
 + echo '=== doona log dir listing ==='
 === doona log dir listing ===
 + ls -la logs/package/feeds/honk/doona/
-total 60
-drwxr-xr-x 2 runner runner  4096 Oct  9 07:15 .
-drwxr-xr-x 4 runner runner  4096 Oct  9 07:15 ..
--rw-r--r-- 1 runner runner 10341 Oct  9 07:15 check-check.txt
--rw-r--r-- 1 runner runner 16371 Oct  9 07:22 check-compile.txt
--rw-r--r-- 1 runner runner 10356 Oct  9 07:15 check-download.txt
--rw-r--r-- 1 runner runner   135 Oct  9 07:15 check.txt
--rw-r--r-- 1 runner runner   310 Oct  9 07:22 compile.txt
--rw-r--r-- 1 runner runner  1043 Oct  9 07:15 download.txt
+total 64
+drwxr-xr-x 2 runner runner  4096 Oct  9 07:31 .
+drwxr-xr-x 4 runner runner  4096 Oct  9 07:30 ..
+-rw-r--r-- 1 runner runner 10341 Oct  9 07:30 check-check.txt
+-rw-r--r-- 1 runner runner 18272 Oct  9 07:37 check-compile.txt
+-rw-r--r-- 1 runner runner 10356 Oct  9 07:30 check-download.txt
+-rw-r--r-- 1 runner runner   135 Oct  9 07:30 check.txt
+-rw-r--r-- 1 runner runner    54 Oct  9 07:37 compile.txt
+-rw-r--r-- 1 runner runner  1122 Oct  9 07:30 download.txt
 + echo '=== doona compile.txt (exact, exclude check-) ==='
 === doona compile.txt (exact, exclude check-) ===
 ++ find logs -path '*doona*' -name compile.txt '!' -name check-compile.txt
@@ -38,10 +39,7 @@ drwxr-xr-x 4 runner runner  4096 Oct  9 07:15 ..
 + echo '--- logs/package/feeds/honk/doona/compile.txt ---'
 --- logs/package/feeds/honk/doona/compile.txt ---
 + tail -150 logs/package/feeds/honk/doona/compile.txt
-ERROR: info field 'version' has invalid value: package version is invalid
-ERROR: failed to create package: package version is invalid
-make[2]: *** [Makefile:84: /home/build/immortalwrt/bin/packages/aarch64_generic/honk/doona-0.1.0-beta.19-r1.apk] Error 99
-time: package/feeds/honk/doona/compile#0.76#0.83#1.50
+time: package/feeds/honk/doona/compile#0.10#0.24#0.25
 + echo '=== doona all other logs ==='
 === doona all other logs ===
 ++ find logs -path '*doona*' -name '*.txt'
@@ -50,22 +48,6 @@ time: package/feeds/honk/doona/compile#0.76#0.83#1.50
 + echo '--- logs/package/feeds/honk/doona/check-compile.txt ---'
 --- logs/package/feeds/honk/doona/check-compile.txt ---
 + tail -30 logs/package/feeds/honk/doona/check-compile.txt
-          Considering target file '/home/build/immortalwrt/dl/doona-0.1.0-beta.19.tar.gz'.
-           Finished prerequisites of target file '/home/build/immortalwrt/dl/doona-0.1.0-beta.19.tar.gz'.
-          No need to remake target '/home/build/immortalwrt/dl/doona-0.1.0-beta.19.tar.gz'.
-          Considering target file '/home/build/immortalwrt/build_dir/target-aarch64_generic_musl/doona/.prepared_e75b8b7d2433e8a1bb41a0c126921be5_18f1e190c5d53547fed41a3eaa76e9e9_check'.
-           Looking for an implicit rule for '/home/build/immortalwrt/build_dir/target-aarch64_generic_musl/doona/.prepared_e75b8b7d2433e8a1bb41a0c126921be5_18f1e190c5d53547fed41a3eaa76e9e9_check'.
-           No implicit rule found for '/home/build/immortalwrt/build_dir/target-aarch64_generic_musl/doona/.prepared_e75b8b7d2433e8a1bb41a0c126921be5_18f1e190c5d53547fed41a3eaa76e9e9_check'.
-           Finished prerequisites of target file '/home/build/immortalwrt/build_dir/target-aarch64_generic_musl/doona/.prepared_e75b8b7d2433e8a1bb41a0c126921be5_18f1e190c5d53547fed41a3eaa76e9e9_check'.
-          No need to remake target '/home/build/immortalwrt/build_dir/target-aarch64_generic_musl/doona/.prepared_e75b8b7d2433e8a1bb41a0c126921be5_18f1e190c5d53547fed41a3eaa76e9e9_check'.
-         Finished prerequisites of target file '/home/build/immortalwrt/build_dir/target-aarch64_generic_musl/doona/.prepared_e75b8b7d2433e8a1bb41a0c126921be5_18f1e190c5d53547fed41a3eaa76e9e9'.
-         Prerequisite '/home/build/immortalwrt/staging_dir/target-aarch64_generic_musl/pkginfo/libgcc.version' is older than target '/home/build/immortalwrt/build_dir/target-aarch64_generic_musl/doona/.prepared_e75b8b7d2433e8a1bb41a0c126921be5_18f1e190c5d53547fed41a3eaa76e9e9'.
-         Prerequisite '/home/build/immortalwrt/dl/doona-0.1.0-beta.19.tar.gz' is older than target '/home/build/immortalwrt/build_dir/target-aarch64_generic_musl/doona/.prepared_e75b8b7d2433e8a1bb41a0c126921be5_18f1e190c5d53547fed41a3eaa76e9e9'.
-         Prerequisite '/home/build/immortalwrt/build_dir/target-aarch64_generic_musl/doona/.prepared_e75b8b7d2433e8a1bb41a0c126921be5_18f1e190c5d53547fed41a3eaa76e9e9_check' is older than target '/home/build/immortalwrt/build_dir/target-aarch64_generic_musl/doona/.prepared_e75b8b7d2433e8a1bb41a0c126921be5_18f1e190c5d53547fed41a3eaa76e9e9'.
-        No need to remake target '/home/build/immortalwrt/build_dir/target-aarch64_generic_musl/doona/.prepared_e75b8b7d2433e8a1bb41a0c126921be5_18f1e190c5d53547fed41a3eaa76e9e9'.
-       Finished prerequisites of target file '/home/build/immortalwrt/build_dir/target-aarch64_generic_musl/doona/.configured_68b329da9893e34099c7d8ad5cb9c940'.
-       Prerequisite '/home/build/immortalwrt/build_dir/target-aarch64_generic_musl/doona/.prepared_e75b8b7d2433e8a1bb41a0c126921be5_18f1e190c5d53547fed41a3eaa76e9e9' is older than target '/home/build/immortalwrt/build_dir/target-aarch64_generic_musl/doona/.configured_68b329da9893e34099c7d8ad5cb9c940'.
-      No need to remake target '/home/build/immortalwrt/build_dir/target-aarch64_generic_musl/doona/.configured_68b329da9893e34099c7d8ad5cb9c940'.
       Considering target file '/home/build/immortalwrt/build_dir/target-aarch64_generic_musl/doona/.built_check'.
        Looking for an implicit rule for '/home/build/immortalwrt/build_dir/target-aarch64_generic_musl/doona/.built_check'.
        No implicit rule found for '/home/build/immortalwrt/build_dir/target-aarch64_generic_musl/doona/.built_check'.
@@ -73,13 +55,29 @@ time: package/feeds/honk/doona/compile#0.76#0.83#1.50
       No need to remake target '/home/build/immortalwrt/build_dir/target-aarch64_generic_musl/doona/.built_check'.
      Finished prerequisites of target file '/home/build/immortalwrt/build_dir/target-aarch64_generic_musl/doona/.built'.
      Prerequisite '/home/build/immortalwrt/build_dir/target-aarch64_generic_musl/doona/.configured_68b329da9893e34099c7d8ad5cb9c940' is older than target '/home/build/immortalwrt/build_dir/target-aarch64_generic_musl/doona/.built'.
-     Prerequisite '/home/build/immortalwrt/build_dir/target-aarch64_generic_musl/doona/.built_check' is newer than target '/home/build/immortalwrt/build_dir/target-aarch64_generic_musl/doona/.built'.
-    Must remake target '/home/build/immortalwrt/build_dir/target-aarch64_generic_musl/doona/.built'.
-    Target file '/home/build/immortalwrt/build_dir/target-aarch64_generic_musl/doona/.built' needs to be remade under -q.
-   Finished prerequisites of target file '/home/build/immortalwrt/bin/packages/aarch64_generic/honk/doona-0.1.0-beta.19-r1.apk'.
-  Giving up on target file '/home/build/immortalwrt/bin/packages/aarch64_generic/honk/doona-0.1.0-beta.19-r1.apk'.
+     Prerequisite '/home/build/immortalwrt/build_dir/target-aarch64_generic_musl/doona/.built_check' is older than target '/home/build/immortalwrt/build_dir/target-aarch64_generic_musl/doona/.built'.
+    No need to remake target '/home/build/immortalwrt/build_dir/target-aarch64_generic_musl/doona/.built'.
+    Considering target file '/home/build/immortalwrt/include/package-pack.mk'.
+    File '/home/build/immortalwrt/include/package-pack.mk' was considered already.
+   Finished prerequisites of target file '/home/build/immortalwrt/bin/packages/aarch64_generic/honk/doona-0.1.0-r1.apk'.
+   Prerequisite '/home/build/immortalwrt/build_dir/target-aarch64_generic_musl/doona/.built' is older than target '/home/build/immortalwrt/bin/packages/aarch64_generic/honk/doona-0.1.0-r1.apk'.
+   Prerequisite '/home/build/immortalwrt/include/package-pack.mk' is older than target '/home/build/immortalwrt/bin/packages/aarch64_generic/honk/doona-0.1.0-r1.apk'.
+  No need to remake target '/home/build/immortalwrt/bin/packages/aarch64_generic/honk/doona-0.1.0-r1.apk'.
+  Considering target file '/home/build/immortalwrt/staging_dir/target-aarch64_generic_musl/pkginfo/doona.provides'.
+    Pruning file '/home/build/immortalwrt/build_dir/target-aarch64_generic_musl/doona/.built'.
+    Pruning file '/home/build/immortalwrt/include/package-pack.mk'.
+   Finished prerequisites of target file '/home/build/immortalwrt/staging_dir/target-aarch64_generic_musl/pkginfo/doona.provides'.
+   Prerequisite '/home/build/immortalwrt/build_dir/target-aarch64_generic_musl/doona/.built' is older than target '/home/build/immortalwrt/staging_dir/target-aarch64_generic_musl/pkginfo/doona.provides'.
+   Prerequisite '/home/build/immortalwrt/include/package-pack.mk' is older than target '/home/build/immortalwrt/staging_dir/target-aarch64_generic_musl/pkginfo/doona.provides'.
+  No need to remake target '/home/build/immortalwrt/staging_dir/target-aarch64_generic_musl/pkginfo/doona.provides'.
+  Considering target file '/home/build/immortalwrt/build_dir/target-aarch64_generic_musl/doona/.pkgdir/doona.installed'.
+    Pruning file '/home/build/immortalwrt/build_dir/target-aarch64_generic_musl/doona/.built'.
+   Finished prerequisites of target file '/home/build/immortalwrt/build_dir/target-aarch64_generic_musl/doona/.pkgdir/doona.installed'.
+   Prerequisite '/home/build/immortalwrt/build_dir/target-aarch64_generic_musl/doona/.built' is older than target '/home/build/immortalwrt/build_dir/target-aarch64_generic_musl/doona/.pkgdir/doona.installed'.
+  No need to remake target '/home/build/immortalwrt/build_dir/target-aarch64_generic_musl/doona/.pkgdir/doona.installed'.
  Finished prerequisites of target file '.compile'.
-Giving up on target file '.compile'.
+Must remake target '.compile'.
+Successfully remade target file '.compile'.
 + for f in $(find logs -path '*doona*' -name '*.txt' 2> /dev/null | head -12)
 + echo '--- logs/package/feeds/honk/doona/check-download.txt ---'
 --- logs/package/feeds/honk/doona/check-download.txt ---
@@ -118,10 +116,7 @@ make[2]: Leaving directory '/feed/doona'
 + echo '--- logs/package/feeds/honk/doona/compile.txt ---'
 --- logs/package/feeds/honk/doona/compile.txt ---
 + tail -30 logs/package/feeds/honk/doona/compile.txt
-ERROR: info field 'version' has invalid value: package version is invalid
-ERROR: failed to create package: package version is invalid
-make[2]: *** [Makefile:84: /home/build/immortalwrt/bin/packages/aarch64_generic/honk/doona-0.1.0-beta.19-r1.apk] Error 99
-time: package/feeds/honk/doona/compile#0.76#0.83#1.50
+time: package/feeds/honk/doona/compile#0.10#0.24#0.25
 + for f in $(find logs -path '*doona*' -name '*.txt' 2> /dev/null | head -12)
 + echo '--- logs/package/feeds/honk/doona/check.txt ---'
 --- logs/package/feeds/honk/doona/check.txt ---
@@ -139,10 +134,10 @@ SHELL= flock /home/build/immortalwrt/tmp/.doona-0.1.0-beta.19.tar.gz.flock -c ' 
 + curl -f --connect-timeout 5 --retry 3 --location https://github.com/Zakkaus/doona/releases/download/v0.1.0-beta.19/doona-0.1.0-beta.19.tar.gz
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                  Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
-100 1205k  100 1205k    0     0  6057k      0 --:--:-- --:--:-- --:--:-- 6057k
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+100 1205k  100 1205k    0     0  6516k      0 --:--:-- --:--:-- --:--:-- 6516k
 make[2]: Leaving directory '/feed/doona'
-time: package/feeds/honk/doona/download#0.16#0.21#0.45
+time: package/feeds/honk/doona/download#0.16#0.20#0.43
 + for f in $(find logs -path '*doona*' -name '*.txt' 2> /dev/null | head -12)
 + echo '--- logs/package/feeds/honk/doona/check-check.txt ---'
 --- logs/package/feeds/honk/doona/check-check.txt ---
@@ -186,10 +181,7 @@ make[2]: Leaving directory '/feed/doona'
 + echo '-> logs/package/feeds/honk/doona/compile.txt'
 -> logs/package/feeds/honk/doona/compile.txt
 + tail -40 logs/package/feeds/honk/doona/compile.txt
-ERROR: info field 'version' has invalid value: package version is invalid
-ERROR: failed to create package: package version is invalid
-make[2]: *** [Makefile:84: /home/build/immortalwrt/bin/packages/aarch64_generic/honk/doona-0.1.0-beta.19-r1.apk] Error 99
-time: package/feeds/honk/doona/compile#0.76#0.83#1.50
+time: package/feeds/honk/doona/compile#0.10#0.24#0.25
 + echo '=== dl doona tarball ==='
 === dl doona tarball ===
 + ls -la dl/
