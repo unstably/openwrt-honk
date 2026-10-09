@@ -64,6 +64,25 @@ jobs:
           KEY_BUILD: ${{ secrets.OPKG_KEY_BUILD }}
           PRIVATE_KEY: ${{ secrets.APK_PRIVATE_KEY }}
 
+      - name: Diagnose build (always)
+        if: always()
+        run: |
+          set -x
+          echo "=== bin/packages tree ==="
+          find bin/packages -maxdepth 3 -type d 2>/dev/null | head -60 || true
+          echo "=== any doona artifacts ==="
+          find bin/packages -iname '*doona*' 2>/dev/null | head || true
+          echo "=== any honk artifacts ==="
+          find bin/packages -iname '*honk*' 2>/dev/null | head || true
+          echo "=== doona compile log ==="
+          f=$(find logs -path '*doona*compile.txt' 2>/dev/null | head -1)
+          if [ -n "$f" ]; then echo "-> $f"; tail -80 "$f"; else echo "no doona compile.txt"; fi
+          echo "=== honk compile log ==="
+          f=$(find logs -path '*honk*compile.txt' 2>/dev/null | head -1)
+          if [ -n "$f" ]; then echo "-> $f"; tail -40 "$f"; else echo "no honk compile.txt"; fi
+          echo "=== dl doona tarball ==="
+          ls -la dl/ | grep -i doona || echo "no doona in dl"
+
       - name: Require all release packages
         run: |
           set -euo pipefail
