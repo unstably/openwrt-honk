@@ -1,0 +1,206 @@
++ echo '=== bin/packages tree ==='
+=== bin/packages tree ===
++ find bin/packages -maxdepth 3 -type d
++ head -60
+bin/packages
+bin/packages/aarch64_generic
+bin/packages/aarch64_generic/base
+bin/packages/aarch64_generic/honk
+bin/packages/aarch64_generic/wall
+bin/packages/aarch64_generic/telephony
+bin/packages/aarch64_generic/routing
+bin/packages/aarch64_generic/luci
+bin/packages/aarch64_generic/packages
++ echo '=== doona artifacts ==='
+=== doona artifacts ===
++ find bin/packages -iname '*doona*'
++ echo '=== honk artifacts ==='
+=== honk artifacts ===
++ find bin/packages -iname '*honk*'
+bin/packages/aarch64_generic/honk
+bin/packages/aarch64_generic/honk/honk-2026.10.09-r1.apk
++ echo '=== doona compile log ==='
+=== doona compile log ===
+++ find logs -path '*doona*compile.txt'
+++ head -1
++ f=logs/package/feeds/honk/doona/check-compile.txt
++ '[' -n logs/package/feeds/honk/doona/check-compile.txt ']'
++ echo '-> logs/package/feeds/honk/doona/check-compile.txt'
+-> logs/package/feeds/honk/doona/check-compile.txt
++ tail -120 logs/package/feeds/honk/doona/check-compile.txt
+  Finished prerequisites of target file '/home/build/immortalwrt/include/package-pack.mk'.
+ No need to remake target '/home/build/immortalwrt/include/package-pack.mk'.
+ Considering target file '/home/build/immortalwrt/include/package-dumpinfo.mk'.
+  Looking for an implicit rule for '/home/build/immortalwrt/include/package-dumpinfo.mk'.
+  No implicit rule found for '/home/build/immortalwrt/include/package-dumpinfo.mk'.
+  Finished prerequisites of target file '/home/build/immortalwrt/include/package-dumpinfo.mk'.
+ No need to remake target '/home/build/immortalwrt/include/package-dumpinfo.mk'.
+ Considering target file '/home/build/immortalwrt/include/package-defaults.mk'.
+  Looking for an implicit rule for '/home/build/immortalwrt/include/package-defaults.mk'.
+  No implicit rule found for '/home/build/immortalwrt/include/package-defaults.mk'.
+  Finished prerequisites of target file '/home/build/immortalwrt/include/package-defaults.mk'.
+ No need to remake target '/home/build/immortalwrt/include/package-defaults.mk'.
+ Considering target file '/home/build/immortalwrt/include/quilt.mk'.
+  Looking for an implicit rule for '/home/build/immortalwrt/include/quilt.mk'.
+  No implicit rule found for '/home/build/immortalwrt/include/quilt.mk'.
+  Finished prerequisites of target file '/home/build/immortalwrt/include/quilt.mk'.
+ No need to remake target '/home/build/immortalwrt/include/quilt.mk'.
+ Considering target file '/home/build/immortalwrt/include/depends.mk'.
+  Looking for an implicit rule for '/home/build/immortalwrt/include/depends.mk'.
+  No implicit rule found for '/home/build/immortalwrt/include/depends.mk'.
+  Finished prerequisites of target file '/home/build/immortalwrt/include/depends.mk'.
+ No need to remake target '/home/build/immortalwrt/include/depends.mk'.
+ Considering target file '/home/build/immortalwrt/include/unpack.mk'.
+  Looking for an implicit rule for '/home/build/immortalwrt/include/unpack.mk'.
+  No implicit rule found for '/home/build/immortalwrt/include/unpack.mk'.
+  Finished prerequisites of target file '/home/build/immortalwrt/include/unpack.mk'.
+ No need to remake target '/home/build/immortalwrt/include/unpack.mk'.
+ Considering target file '/home/build/immortalwrt/include/prereq.mk'.
+  Looking for an implicit rule for '/home/build/immortalwrt/include/prereq.mk'.
+  No implicit rule found for '/home/build/immortalwrt/include/prereq.mk'.
+  Finished prerequisites of target file '/home/build/immortalwrt/include/prereq.mk'.
+ No need to remake target '/home/build/immortalwrt/include/prereq.mk'.
+ Considering target file '/home/build/immortalwrt/include/hardening.mk'.
+  Looking for an implicit rule for '/home/build/immortalwrt/include/hardening.mk'.
+  No implicit rule found for '/home/build/immortalwrt/include/hardening.mk'.
+  Finished prerequisites of target file '/home/build/immortalwrt/include/hardening.mk'.
+ No need to remake target '/home/build/immortalwrt/include/hardening.mk'.
+ Considering target file '/home/build/immortalwrt/include/download.mk'.
+  Looking for an implicit rule for '/home/build/immortalwrt/include/download.mk'.
+  No implicit rule found for '/home/build/immortalwrt/include/download.mk'.
+  Finished prerequisites of target file '/home/build/immortalwrt/include/download.mk'.
+ No need to remake target '/home/build/immortalwrt/include/download.mk'.
+ Considering target file '/home/build/immortalwrt/include/package.mk'.
+  Looking for an implicit rule for '/home/build/immortalwrt/include/package.mk'.
+  No implicit rule found for '/home/build/immortalwrt/include/package.mk'.
+  Finished prerequisites of target file '/home/build/immortalwrt/include/package.mk'.
+ No need to remake target '/home/build/immortalwrt/include/package.mk'.
+ Considering target file '/home/build/immortalwrt/staging_dir/toolchain-aarch64_generic_gcc-14.3.0_musl/info.mk'.
+  Looking for an implicit rule for '/home/build/immortalwrt/staging_dir/toolchain-aarch64_generic_gcc-14.3.0_musl/info.mk'.
+  No implicit rule found for '/home/build/immortalwrt/staging_dir/toolchain-aarch64_generic_gcc-14.3.0_musl/info.mk'.
+  Finished prerequisites of target file '/home/build/immortalwrt/staging_dir/toolchain-aarch64_generic_gcc-14.3.0_musl/info.mk'.
+ No need to remake target '/home/build/immortalwrt/staging_dir/toolchain-aarch64_generic_gcc-14.3.0_musl/info.mk'.
+ Considering target file '/home/build/immortalwrt/include/verbose.mk'.
+  Looking for an implicit rule for '/home/build/immortalwrt/include/verbose.mk'.
+  No implicit rule found for '/home/build/immortalwrt/include/verbose.mk'.
+  Finished prerequisites of target file '/home/build/immortalwrt/include/verbose.mk'.
+ No need to remake target '/home/build/immortalwrt/include/verbose.mk'.
+ Considering target file '/home/build/immortalwrt/include/debug.mk'.
+  Looking for an implicit rule for '/home/build/immortalwrt/include/debug.mk'.
+  No implicit rule found for '/home/build/immortalwrt/include/debug.mk'.
+  Finished prerequisites of target file '/home/build/immortalwrt/include/debug.mk'.
+ No need to remake target '/home/build/immortalwrt/include/debug.mk'.
+ Considering target file '/home/build/immortalwrt/.config'.
+  Looking for an implicit rule for '/home/build/immortalwrt/.config'.
+  No implicit rule found for '/home/build/immortalwrt/.config'.
+  Finished prerequisites of target file '/home/build/immortalwrt/.config'.
+ No need to remake target '/home/build/immortalwrt/.config'.
+ Considering target file '/home/build/immortalwrt/rules.mk'.
+  Looking for an implicit rule for '/home/build/immortalwrt/rules.mk'.
+  No implicit rule found for '/home/build/immortalwrt/rules.mk'.
+  Finished prerequisites of target file '/home/build/immortalwrt/rules.mk'.
+ No need to remake target '/home/build/immortalwrt/rules.mk'.
+ Considering target file 'Makefile'.
+  Looking for an implicit rule for 'Makefile'.
+  No implicit rule found for 'Makefile'.
+  Finished prerequisites of target file 'Makefile'.
+ No need to remake target 'Makefile'.
+Updating goal targets....
+Considering target file '.compile'.
+ File '.compile' does not exist.
+  Considering target file '/home/build/immortalwrt/bin/packages/aarch64_generic/honk/doona-0.1.0-beta.19-r1.apk'.
+   File '/home/build/immortalwrt/bin/packages/aarch64_generic/honk/doona-0.1.0-beta.19-r1.apk' does not exist.
+    Considering target file '/home/build/immortalwrt/build_dir/target-aarch64_generic_musl/doona/.built'.
+      Considering target file '/home/build/immortalwrt/build_dir/target-aarch64_generic_musl/doona/.configured_68b329da9893e34099c7d8ad5cb9c940'.
+        Considering target file '/home/build/immortalwrt/build_dir/target-aarch64_generic_musl/doona/.prepared_79865016ed95cd9486d0fbe2cfd71d88_18f1e190c5d53547fed41a3eaa76e9e9'.
+          Considering target file '/home/build/immortalwrt/staging_dir/target-aarch64_generic_musl/pkginfo/libgcc.version'.
+           Looking for an implicit rule for '/home/build/immortalwrt/staging_dir/target-aarch64_generic_musl/pkginfo/libgcc.version'.
+           No implicit rule found for '/home/build/immortalwrt/staging_dir/target-aarch64_generic_musl/pkginfo/libgcc.version'.
+           Finished prerequisites of target file '/home/build/immortalwrt/staging_dir/target-aarch64_generic_musl/pkginfo/libgcc.version'.
+          No need to remake target '/home/build/immortalwrt/staging_dir/target-aarch64_generic_musl/pkginfo/libgcc.version'.
+          Considering target file '/home/build/immortalwrt/dl/doona-0.1.0-beta.19.tar.gz'.
+           Finished prerequisites of target file '/home/build/immortalwrt/dl/doona-0.1.0-beta.19.tar.gz'.
+          No need to remake target '/home/build/immortalwrt/dl/doona-0.1.0-beta.19.tar.gz'.
+          Considering target file '/home/build/immortalwrt/build_dir/target-aarch64_generic_musl/doona/.prepared_79865016ed95cd9486d0fbe2cfd71d88_18f1e190c5d53547fed41a3eaa76e9e9_check'.
+           Looking for an implicit rule for '/home/build/immortalwrt/build_dir/target-aarch64_generic_musl/doona/.prepared_79865016ed95cd9486d0fbe2cfd71d88_18f1e190c5d53547fed41a3eaa76e9e9_check'.
+           No implicit rule found for '/home/build/immortalwrt/build_dir/target-aarch64_generic_musl/doona/.prepared_79865016ed95cd9486d0fbe2cfd71d88_18f1e190c5d53547fed41a3eaa76e9e9_check'.
+           Finished prerequisites of target file '/home/build/immortalwrt/build_dir/target-aarch64_generic_musl/doona/.prepared_79865016ed95cd9486d0fbe2cfd71d88_18f1e190c5d53547fed41a3eaa76e9e9_check'.
+          No need to remake target '/home/build/immortalwrt/build_dir/target-aarch64_generic_musl/doona/.prepared_79865016ed95cd9486d0fbe2cfd71d88_18f1e190c5d53547fed41a3eaa76e9e9_check'.
+         Finished prerequisites of target file '/home/build/immortalwrt/build_dir/target-aarch64_generic_musl/doona/.prepared_79865016ed95cd9486d0fbe2cfd71d88_18f1e190c5d53547fed41a3eaa76e9e9'.
+         Prerequisite '/home/build/immortalwrt/staging_dir/target-aarch64_generic_musl/pkginfo/libgcc.version' is older than target '/home/build/immortalwrt/build_dir/target-aarch64_generic_musl/doona/.prepared_79865016ed95cd9486d0fbe2cfd71d88_18f1e190c5d53547fed41a3eaa76e9e9'.
+         Prerequisite '/home/build/immortalwrt/dl/doona-0.1.0-beta.19.tar.gz' is older than target '/home/build/immortalwrt/build_dir/target-aarch64_generic_musl/doona/.prepared_79865016ed95cd9486d0fbe2cfd71d88_18f1e190c5d53547fed41a3eaa76e9e9'.
+         Prerequisite '/home/build/immortalwrt/build_dir/target-aarch64_generic_musl/doona/.prepared_79865016ed95cd9486d0fbe2cfd71d88_18f1e190c5d53547fed41a3eaa76e9e9_check' is older than target '/home/build/immortalwrt/build_dir/target-aarch64_generic_musl/doona/.prepared_79865016ed95cd9486d0fbe2cfd71d88_18f1e190c5d53547fed41a3eaa76e9e9'.
+        No need to remake target '/home/build/immortalwrt/build_dir/target-aarch64_generic_musl/doona/.prepared_79865016ed95cd9486d0fbe2cfd71d88_18f1e190c5d53547fed41a3eaa76e9e9'.
+       Finished prerequisites of target file '/home/build/immortalwrt/build_dir/target-aarch64_generic_musl/doona/.configured_68b329da9893e34099c7d8ad5cb9c940'.
+       Prerequisite '/home/build/immortalwrt/build_dir/target-aarch64_generic_musl/doona/.prepared_79865016ed95cd9486d0fbe2cfd71d88_18f1e190c5d53547fed41a3eaa76e9e9' is older than target '/home/build/immortalwrt/build_dir/target-aarch64_generic_musl/doona/.configured_68b329da9893e34099c7d8ad5cb9c940'.
+      No need to remake target '/home/build/immortalwrt/build_dir/target-aarch64_generic_musl/doona/.configured_68b329da9893e34099c7d8ad5cb9c940'.
+      Considering target file '/home/build/immortalwrt/build_dir/target-aarch64_generic_musl/doona/.built_check'.
+       Looking for an implicit rule for '/home/build/immortalwrt/build_dir/target-aarch64_generic_musl/doona/.built_check'.
+       No implicit rule found for '/home/build/immortalwrt/build_dir/target-aarch64_generic_musl/doona/.built_check'.
+       Finished prerequisites of target file '/home/build/immortalwrt/build_dir/target-aarch64_generic_musl/doona/.built_check'.
+      No need to remake target '/home/build/immortalwrt/build_dir/target-aarch64_generic_musl/doona/.built_check'.
+     Finished prerequisites of target file '/home/build/immortalwrt/build_dir/target-aarch64_generic_musl/doona/.built'.
+     Prerequisite '/home/build/immortalwrt/build_dir/target-aarch64_generic_musl/doona/.configured_68b329da9893e34099c7d8ad5cb9c940' is older than target '/home/build/immortalwrt/build_dir/target-aarch64_generic_musl/doona/.built'.
+     Prerequisite '/home/build/immortalwrt/build_dir/target-aarch64_generic_musl/doona/.built_check' is newer than target '/home/build/immortalwrt/build_dir/target-aarch64_generic_musl/doona/.built'.
+    Must remake target '/home/build/immortalwrt/build_dir/target-aarch64_generic_musl/doona/.built'.
+    Target file '/home/build/immortalwrt/build_dir/target-aarch64_generic_musl/doona/.built' needs to be remade under -q.
+   Finished prerequisites of target file '/home/build/immortalwrt/bin/packages/aarch64_generic/honk/doona-0.1.0-beta.19-r1.apk'.
+  Giving up on target file '/home/build/immortalwrt/bin/packages/aarch64_generic/honk/doona-0.1.0-beta.19-r1.apk'.
+ Finished prerequisites of target file '.compile'.
+Giving up on target file '.compile'.
++ echo '=== honk compile log ==='
+=== honk compile log ===
+++ find logs -path '*honk*compile.txt'
+++ head -1
++ f=logs/package/feeds/honk/doona/check-compile.txt
++ '[' -n logs/package/feeds/honk/doona/check-compile.txt ']'
++ echo '-> logs/package/feeds/honk/doona/check-compile.txt'
+-> logs/package/feeds/honk/doona/check-compile.txt
++ tail -40 logs/package/feeds/honk/doona/check-compile.txt
+  Considering target file '/home/build/immortalwrt/bin/packages/aarch64_generic/honk/doona-0.1.0-beta.19-r1.apk'.
+   File '/home/build/immortalwrt/bin/packages/aarch64_generic/honk/doona-0.1.0-beta.19-r1.apk' does not exist.
+    Considering target file '/home/build/immortalwrt/build_dir/target-aarch64_generic_musl/doona/.built'.
+      Considering target file '/home/build/immortalwrt/build_dir/target-aarch64_generic_musl/doona/.configured_68b329da9893e34099c7d8ad5cb9c940'.
+        Considering target file '/home/build/immortalwrt/build_dir/target-aarch64_generic_musl/doona/.prepared_79865016ed95cd9486d0fbe2cfd71d88_18f1e190c5d53547fed41a3eaa76e9e9'.
+          Considering target file '/home/build/immortalwrt/staging_dir/target-aarch64_generic_musl/pkginfo/libgcc.version'.
+           Looking for an implicit rule for '/home/build/immortalwrt/staging_dir/target-aarch64_generic_musl/pkginfo/libgcc.version'.
+           No implicit rule found for '/home/build/immortalwrt/staging_dir/target-aarch64_generic_musl/pkginfo/libgcc.version'.
+           Finished prerequisites of target file '/home/build/immortalwrt/staging_dir/target-aarch64_generic_musl/pkginfo/libgcc.version'.
+          No need to remake target '/home/build/immortalwrt/staging_dir/target-aarch64_generic_musl/pkginfo/libgcc.version'.
+          Considering target file '/home/build/immortalwrt/dl/doona-0.1.0-beta.19.tar.gz'.
+           Finished prerequisites of target file '/home/build/immortalwrt/dl/doona-0.1.0-beta.19.tar.gz'.
+          No need to remake target '/home/build/immortalwrt/dl/doona-0.1.0-beta.19.tar.gz'.
+          Considering target file '/home/build/immortalwrt/build_dir/target-aarch64_generic_musl/doona/.prepared_79865016ed95cd9486d0fbe2cfd71d88_18f1e190c5d53547fed41a3eaa76e9e9_check'.
+           Looking for an implicit rule for '/home/build/immortalwrt/build_dir/target-aarch64_generic_musl/doona/.prepared_79865016ed95cd9486d0fbe2cfd71d88_18f1e190c5d53547fed41a3eaa76e9e9_check'.
+           No implicit rule found for '/home/build/immortalwrt/build_dir/target-aarch64_generic_musl/doona/.prepared_79865016ed95cd9486d0fbe2cfd71d88_18f1e190c5d53547fed41a3eaa76e9e9_check'.
+           Finished prerequisites of target file '/home/build/immortalwrt/build_dir/target-aarch64_generic_musl/doona/.prepared_79865016ed95cd9486d0fbe2cfd71d88_18f1e190c5d53547fed41a3eaa76e9e9_check'.
+          No need to remake target '/home/build/immortalwrt/build_dir/target-aarch64_generic_musl/doona/.prepared_79865016ed95cd9486d0fbe2cfd71d88_18f1e190c5d53547fed41a3eaa76e9e9_check'.
+         Finished prerequisites of target file '/home/build/immortalwrt/build_dir/target-aarch64_generic_musl/doona/.prepared_79865016ed95cd9486d0fbe2cfd71d88_18f1e190c5d53547fed41a3eaa76e9e9'.
+         Prerequisite '/home/build/immortalwrt/staging_dir/target-aarch64_generic_musl/pkginfo/libgcc.version' is older than target '/home/build/immortalwrt/build_dir/target-aarch64_generic_musl/doona/.prepared_79865016ed95cd9486d0fbe2cfd71d88_18f1e190c5d53547fed41a3eaa76e9e9'.
+         Prerequisite '/home/build/immortalwrt/dl/doona-0.1.0-beta.19.tar.gz' is older than target '/home/build/immortalwrt/build_dir/target-aarch64_generic_musl/doona/.prepared_79865016ed95cd9486d0fbe2cfd71d88_18f1e190c5d53547fed41a3eaa76e9e9'.
+         Prerequisite '/home/build/immortalwrt/build_dir/target-aarch64_generic_musl/doona/.prepared_79865016ed95cd9486d0fbe2cfd71d88_18f1e190c5d53547fed41a3eaa76e9e9_check' is older than target '/home/build/immortalwrt/build_dir/target-aarch64_generic_musl/doona/.prepared_79865016ed95cd9486d0fbe2cfd71d88_18f1e190c5d53547fed41a3eaa76e9e9'.
+        No need to remake target '/home/build/immortalwrt/build_dir/target-aarch64_generic_musl/doona/.prepared_79865016ed95cd9486d0fbe2cfd71d88_18f1e190c5d53547fed41a3eaa76e9e9'.
+       Finished prerequisites of target file '/home/build/immortalwrt/build_dir/target-aarch64_generic_musl/doona/.configured_68b329da9893e34099c7d8ad5cb9c940'.
+       Prerequisite '/home/build/immortalwrt/build_dir/target-aarch64_generic_musl/doona/.prepared_79865016ed95cd9486d0fbe2cfd71d88_18f1e190c5d53547fed41a3eaa76e9e9' is older than target '/home/build/immortalwrt/build_dir/target-aarch64_generic_musl/doona/.configured_68b329da9893e34099c7d8ad5cb9c940'.
+      No need to remake target '/home/build/immortalwrt/build_dir/target-aarch64_generic_musl/doona/.configured_68b329da9893e34099c7d8ad5cb9c940'.
+      Considering target file '/home/build/immortalwrt/build_dir/target-aarch64_generic_musl/doona/.built_check'.
+       Looking for an implicit rule for '/home/build/immortalwrt/build_dir/target-aarch64_generic_musl/doona/.built_check'.
+       No implicit rule found for '/home/build/immortalwrt/build_dir/target-aarch64_generic_musl/doona/.built_check'.
+       Finished prerequisites of target file '/home/build/immortalwrt/build_dir/target-aarch64_generic_musl/doona/.built_check'.
+      No need to remake target '/home/build/immortalwrt/build_dir/target-aarch64_generic_musl/doona/.built_check'.
+     Finished prerequisites of target file '/home/build/immortalwrt/build_dir/target-aarch64_generic_musl/doona/.built'.
+     Prerequisite '/home/build/immortalwrt/build_dir/target-aarch64_generic_musl/doona/.configured_68b329da9893e34099c7d8ad5cb9c940' is older than target '/home/build/immortalwrt/build_dir/target-aarch64_generic_musl/doona/.built'.
+     Prerequisite '/home/build/immortalwrt/build_dir/target-aarch64_generic_musl/doona/.built_check' is newer than target '/home/build/immortalwrt/build_dir/target-aarch64_generic_musl/doona/.built'.
+    Must remake target '/home/build/immortalwrt/build_dir/target-aarch64_generic_musl/doona/.built'.
+    Target file '/home/build/immortalwrt/build_dir/target-aarch64_generic_musl/doona/.built' needs to be remade under -q.
+   Finished prerequisites of target file '/home/build/immortalwrt/bin/packages/aarch64_generic/honk/doona-0.1.0-beta.19-r1.apk'.
+  Giving up on target file '/home/build/immortalwrt/bin/packages/aarch64_generic/honk/doona-0.1.0-beta.19-r1.apk'.
+ Finished prerequisites of target file '.compile'.
+Giving up on target file '.compile'.
++ echo '=== dl doona tarball ==='
+=== dl doona tarball ===
++ ls -la dl/
++ grep -i doona
+ls: cannot access 'dl/': No such file or directory
++ echo 'no doona in dl'
+no doona in dl
