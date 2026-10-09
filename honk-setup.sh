@@ -63,6 +63,20 @@ detect_pkg() {
     fi
 }
 
+# ---------- 等旧进程的 dae0 虚拟接口消失（最多 30s）----------
+# honk 停止时要卸载 eBPF 钩子并清理 dae0，这段时间内启动会撞
+# "dae0 already exists" 而失败，所以升级/重启前必须等它释放。
+wait_for_dae0_gone() {
+    i=0
+    while ip link show dae0 >/dev/null 2>&1; do
+        i=$((i + 1))
+        [ "$i" -ge 30 ] && break
+        sleep 1
+    done
+    [ "$i" -gt 0 ] && log "已等待 ${i}s 让旧进程释放 dae0"
+    return 0
+}
+
 # ---------- 依赖提示（geo 数据缺失会导致 honk 启动失败）----------
 check_deps() {
     missing=""
@@ -124,7 +138,14 @@ do_install() {
     if [ "$was_enabled" = 1 ] && [ "$was_init" = 1 ]; then
         log "检测到此前已启用，恢复开机自启并启动…"
         /etc/init.d/honk enable >/dev/null 2>&1 || true
+        # 升级时旧进程还在卸载 eBPF 钩子，dae0 要几秒才消失。此时 start 会报
+        # "dae0 already exists" 并静默失败（服务显示没起来但没报错），必须等它清理完。
+        wait_for_dae0_gone
         /etc/init.d/honk start || log "启动失败，请用 logread 查看"
+        sleep 3
+        if ! ip link show dae0 >/dev/null 2>&1; then
+            log "警告：honk 似乎未成功启动（dae0 未出现），请用 logread 查看"
+        fi
     else
         log "全新安装：为安全起见未自动启动（无订阅时启动会接管全部流量）。"
     fi
@@ -141,6 +162,7 @@ do_uninstall() {
     if [ -x /etc/init.d/honk ]; then
         /etc/init.d/honk stop >/dev/null 2>&1 || true
         /etc/init.d/honk disable >/dev/null 2>&1 || true
+        wait_for_dae0_gone
     fi
 
     BK="/root/honk-backup-$(date +%Y%m%d-%H%M%S)"

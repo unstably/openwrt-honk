@@ -38,6 +38,19 @@ assets {
 修复了在中国大陆直连 `raw.githubusercontent.com` 时被墙导致的
 `geodata_update_failed` / `bootstrap_unavailable` 报错。
 
+> ⚠️ **升级时这条修复不会自动生效**。`config.dae` 是 conffiles，只要你改过它（例如通过面板
+> 加过订阅），`apk` 就会保留你的版本，把新版写成 `config.dae.apk-new`——新版里的 jsdelivr
+> 地址因此不会进来。升级后请确认 `assets` 段里有上面那两行，没有就补上。
+> 下面这条命令只动 `assets` 段，订阅 / group / dns 原样保留，且可重复执行：
+
+```sh
+grep -q "cdn.jsdelivr.net/gh/MetaCubeX" /etc/honk/config.dae || sed -i "/^assets {/,/^}/ s|^    route: direct$|    route: direct\n    geoip: 'https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geoip.dat'\n    geosite: 'https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geosite.dat'|" /etc/honk/config.dae
+/etc/init.d/honk stop && sleep 8 && /etc/init.d/honk start
+```
+
+> 重启要 `stop` 后等几秒再 `start`：honk 停止时要卸载 eBPF 钩子，`dae0` 虚拟接口不会立刻消失，
+> 立刻 `start` 会撞 `dae0 already exists` 而静默失败（服务没起来却不报错）。
+
 ## 一键安装
 
 在路由器 SSH 里执行（脚本会自动识别架构 `aarch64 / x86_64` 与包体系 `apk / opkg`，下载对应 Release 包并安装）：
@@ -151,6 +164,20 @@ detect_pkg() {
     fi
 }
 
+# ---------- 等旧进程的 dae0 虚拟接口消失（最多 30s）----------
+# honk 停止时要卸载 eBPF 钩子并清理 dae0，这段时间内启动会撞
+# "dae0 already exists" 而失败，所以升级/重启前必须等它释放。
+wait_for_dae0_gone() {
+    i=0
+    while ip link show dae0 >/dev/null 2>&1; do
+        i=$((i + 1))
+        [ "$i" -ge 30 ] && break
+        sleep 1
+    done
+    [ "$i" -gt 0 ] && log "已等待 ${i}s 让旧进程释放 dae0"
+    return 0
+}
+
 # ---------- 依赖提示（geo 数据缺失会导致 honk 启动失败）----------
 check_deps() {
     missing=""
@@ -212,7 +239,14 @@ do_install() {
     if [ "$was_enabled" = 1 ] && [ "$was_init" = 1 ]; then
         log "检测到此前已启用，恢复开机自启并启动…"
         /etc/init.d/honk enable >/dev/null 2>&1 || true
+        # 升级时旧进程还在卸载 eBPF 钩子，dae0 要几秒才消失。此时 start 会报
+        # "dae0 already exists" 并静默失败（服务显示没起来但没报错），必须等它清理完。
+        wait_for_dae0_gone
         /etc/init.d/honk start || log "启动失败，请用 logread 查看"
+        sleep 3
+        if ! ip link show dae0 >/dev/null 2>&1; then
+            log "警告：honk 似乎未成功启动（dae0 未出现），请用 logread 查看"
+        fi
     else
         log "全新安装：为安全起见未自动启动（无订阅时启动会接管全部流量）。"
     fi
@@ -229,6 +263,7 @@ do_uninstall() {
     if [ -x /etc/init.d/honk ]; then
         /etc/init.d/honk stop >/dev/null 2>&1 || true
         /etc/init.d/honk disable >/dev/null 2>&1 || true
+        wait_for_dae0_gone
     fi
 
     BK="/root/honk-backup-$(date +%Y%m%d-%H%M%S)"
