@@ -3,5 +3,56 @@ include {
 }
 
 routing {
-    fallback: direct
+  # dae presets: the LAN and multicast stay off the proxy
+  dip(224.0.0.0/3, 'ff00::/8') -> direct
+  dip(geoip:private) -> direct
+  # ZeroTier bypass: keep zt control channel + zt subnet off the proxy
+  dip(192.168.191.0/24) -> direct
+  l4proto(udp) && dport(9993) -> direct
+  # Block UDP/443 (QUIC) to force TCP-based proxies where desired
+  l4proto(udp) && dport(443) -> block
+  # Ads
+  domain(geosite:category-ads-all) -> block
+  # Google China services and mainland games
+  domain(geosite:google-cn, geosite:category-games@cn) -> direct
+  # Mainland China
+  domain(geosite:cn) -> direct
+  dip(geoip:cn) -> direct
+  fallback: 00
+}
+
+# Geodata: downloaded through the "assets" path. route: direct means the
+# download leaves through the router's own egress instead of the proxy nodes,
+# and we point at the jsdelivr CDN mirror which is reachable from CN without
+# going through a proxy. This fixes the geodata_update_failed /
+# bootstrap_unavailable error seen when the default raw.githubusercontent.com
+# source is unreachable.
+assets {
+    route: direct
+    geoip: 'https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geoip.dat'
+    geosite: 'https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geosite.dat'
+}
+
+subscription {
+}
+
+group {
+    00 {
+        filter: subtag(cfnew)
+        policy: min_moving_avg
+    }
+}
+
+dns {
+  upstream {
+    cloudflare: 'tls://1.1.1.1:853'
+    alidns: 'udp://223.5.5.5:53'
+    alidot: 'tls://223.5.5.5:853'
+  }
+  routing {
+    request {
+      qname(geosite:cn) -> alidns
+      fallback: alidns
+    }
+  }
 }

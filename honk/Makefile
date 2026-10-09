@@ -1,24 +1,29 @@
-# SPDX-License-Identifier: GPL-3.0-only
+# SPDX-License-Identifier: AGPL-3.0-only
 #
-# Copyright (C) 2026 kenzok8
+# Thin OpenWrt feed for Honk on aarch64/x86_64.
+# Pins the OFFICIAL prebuilt artifacts:
+#   - honk core : Glassyiris/honk  (debug.*.native-api.* "stock" musl tarball)
+#   - doona UI  : Zakkaus/doona    (static web bundle, arch-independent)
+# No Rust / Node compile happens here.
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=honk
-PKG_VERSION:=2026.10.07
+PKG_VERSION:=2026.10.09
 PKG_RELEASE:=1
 
-# Raw upstream release tag; the asset name keeps this exact spelling.
-HONK_RELEASE_TAG:=debug.2026.10.7.native-api.1
+# Release tag on Glassyiris/honk that publishes the "stock" musl tarballs.
+HONK_RELEASE_TAG:=debug.2026.10.9.native-api.2
 HONK_ASSET_TAG:=debug
+HONK_SUFFIX:=-stock
 
-# SHA256 of each prebuilt release tarball, kept in sync by scripts/update-honk-version.sh.
-HONK_HASH_X86_64:=41114fc58c069c5dc2550dc6563755a2bc4b1f9a52eec128300bb4c3ad23fd80
-HONK_HASH_AARCH64:=2aada1c945ace03c6403cc587940b4eddf31cb0846ec31e8318efbd5317b36b7
+# SHA256 of each prebuilt release tarball (kept in sync with HONK_RELEASE_TAG).
+HONK_HASH_X86_64:=d46eecc460ad9f9fdfad30b80828e4b64ec9f94bbcabff942b8fe68d3793f9b2
+HONK_HASH_AARCH64:=b706100f6a9ba9879bf2c1e018f64072ebe66f128f8dcb8b8a11d803eefe8174
 
 PKG_LICENSE:=AGPL-3.0-only
 PKG_LICENSE_FILES:=LICENSE
-PKG_MAINTAINER:=kenzok8
+PKG_MAINTAINER:=unstably
 
 ifeq ($(ARCH),x86_64)
   HONK_TARGET:=x86_64-unknown-linux-musl
@@ -28,7 +33,6 @@ else ifeq ($(ARCH),aarch64)
   HONK_HASH:=$(HONK_HASH_AARCH64)
 endif
 
-HONK_SUFFIX:=-stock
 HONK_ASSET:=honk-core-$(HONK_ASSET_TAG)-$(HONK_TARGET)$(HONK_SUFFIX).tar.gz
 
 PKG_SOURCE:=$(HONK_ASSET)
@@ -45,11 +49,12 @@ define Package/honk
   SUBMENU:=Web Servers/Proxies
   TITLE:=Honk transparent proxy core
   URL:=https://github.com/Glassyiris/honk
-  DEPENDS:=@(x86_64||aarch64) +ca-bundle +ip-full +ubus +kmod-sched-core +kmod-sched-bpf +kmod-veth +kmod-nft-queue +jsonfilter +jshn +sqlite3-cli +libubox +usign +coreutils-stat +v2ray-geoip +v2ray-geosite +@KERNEL_DEBUG_INFO_BTF
+  DEPENDS:=@(x86_64||aarch64) +doona +ca-bundle +ip-full +ubus +kmod-sched-core +kmod-sched-bpf +kmod-veth +kmod-nft-queue +jsonfilter +jshn +sqlite3-cli +libubox +usign +coreutils-stat +v2ray-geoip +v2ray-geosite +@KERNEL_DEBUG_INFO_BTF
 endef
 
 define Package/honk/description
   Honk is a transparent proxy core for OpenWrt x86_64 and aarch64.
+  This package bundles the official prebuilt binary and our management glue.
 endef
 
 define Package/honk/conffiles
@@ -59,7 +64,6 @@ define Package/honk/conffiles
 endef
 
 define Build/Prepare
-	mkdir -p $(PKG_BUILD_DIR)
 	$(TAR) -xzf $(DL_DIR)/$(PKG_SOURCE) -C $(PKG_BUILD_DIR) --strip-components=1
 endef
 
@@ -93,12 +97,6 @@ define Package/honk/install
 	$(INSTALL_BIN) $(CURDIR)/files/control.sh $(1)/usr/share/honk/control.sh
 	$(INSTALL_BIN) $(CURDIR)/files/lock.sh $(1)/usr/share/honk/lock.sh
 	$(INSTALL_BIN) $(CURDIR)/files/lifecycle.sh $(1)/usr/share/honk/lifecycle.sh
-	$(INSTALL_BIN) $(CURDIR)/files/maintenance.sh $(1)/usr/share/honk/maintenance.sh
-	$(INSTALL_BIN) $(CURDIR)/files/job.sh $(1)/usr/share/honk/job.sh
-	$(INSTALL_BIN) $(CURDIR)/files/update.sh $(1)/usr/share/honk/update.sh
-	$(INSTALL_BIN) $(CURDIR)/files/redact-log.sh $(1)/usr/share/honk/redact-log.sh
-	$(INSTALL_BIN) $(CURDIR)/files/log-level-filter.sh $(1)/usr/share/honk/log-level-filter.sh
-	$(INSTALL_DATA) $(CURDIR)/files/log-lines.sh $(1)/usr/share/honk/log-lines.sh
 endef
 
 $(eval $(call BuildPackage,honk))
