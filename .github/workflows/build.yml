@@ -25,6 +25,8 @@ jobs:
   build:
     name: ${{ matrix.arch }} · SDK ${{ matrix.sdk }}
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     strategy:
       fail-fast: false
       matrix:
@@ -64,24 +66,33 @@ jobs:
           KEY_BUILD: ${{ secrets.OPKG_KEY_BUILD }}
           PRIVATE_KEY: ${{ secrets.APK_PRIVATE_KEY }}
 
-      - name: Diagnose build (always)
-        if: always()
+      - name: Diagnose build & push dump (aarch64_generic · 25.12 only)
+        if: always() && matrix.arch == 'aarch64_generic' && matrix.sdk == '25.12'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           set -x
-          echo "=== bin/packages tree ==="
-          find bin/packages -maxdepth 3 -type d 2>/dev/null | head -60 || true
-          echo "=== any doona artifacts ==="
-          find bin/packages -iname '*doona*' 2>/dev/null | head || true
-          echo "=== any honk artifacts ==="
-          find bin/packages -iname '*honk*' 2>/dev/null | head || true
-          echo "=== doona compile log ==="
-          f=$(find logs -path '*doona*compile.txt' 2>/dev/null | head -1)
-          if [ -n "$f" ]; then echo "-> $f"; tail -80 "$f"; else echo "no doona compile.txt"; fi
-          echo "=== honk compile log ==="
-          f=$(find logs -path '*honk*compile.txt' 2>/dev/null | head -1)
-          if [ -n "$f" ]; then echo "-> $f"; tail -40 "$f"; else echo "no honk compile.txt"; fi
-          echo "=== dl doona tarball ==="
-          ls -la dl/ | grep -i doona || echo "no doona in dl"
+          {
+            echo "=== bin/packages tree ==="
+            find bin/packages -maxdepth 3 -type d 2>/dev/null | head -60
+            echo "=== doona artifacts ==="
+            find bin/packages -iname '*doona*' 2>/dev/null
+            echo "=== honk artifacts ==="
+            find bin/packages -iname '*honk*' 2>/dev/null
+            echo "=== doona compile log ==="
+            f=$(find logs -path '*doona*compile.txt' 2>/dev/null | head -1)
+            if [ -n "$f" ]; then echo "-> $f"; tail -120 "$f"; else echo "no doona compile.txt"; fi
+            echo "=== honk compile log ==="
+            f=$(find logs -path '*honk*compile.txt' 2>/dev/null | head -1)
+            if [ -n "$f" ]; then echo "-> $f"; tail -40 "$f"; else echo "no honk compile.txt"; fi
+            echo "=== dl doona tarball ==="
+            ls -la dl/ | grep -i doona || echo "no doona in dl"
+          } > ci-diag.txt 2>&1
+          git config user.name "ci-bot"
+          git config user.email "ci@users.noreply.github.com"
+          git add ci-diag.txt
+          git commit -m "ci: diagnostics dump (aarch64_generic 25.12)" || true
+          git push "https://x-access-token:${GITHUB_TOKEN}@github.com/unstably/openwrt-honk-for-aarch64.git" HEAD:aarch64-rk356x || true
 
       - name: Require all release packages
         run: |
